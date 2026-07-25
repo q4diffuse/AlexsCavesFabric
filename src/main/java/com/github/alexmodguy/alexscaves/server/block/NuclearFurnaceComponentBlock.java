@@ -154,7 +154,15 @@ public class NuclearFurnaceComponentBlock extends Block implements WorldlyContai
                     mutableBlockPos.set(cornerPos.getX() + x, cornerPos.getY() + y, cornerPos.getZ() + z);
                     BlockState state = levelAccessor.getBlockState(mutableBlockPos);
                     if (state.is(ACBlockRegistry.NUCLEAR_FURNACE_COMPONENT.get())) {
-                        levelAccessor.setBlock(mutableBlockPos, ACBlockRegistry.NUCLEAR_FURNACE_COMPONENT.get().defaultBlockState().setValue(ACTIVE, active), 3);
+                        // UPDATE_KNOWN_SHAPE suppresses updateShape on the neighbours we are still in the
+                        // middle of activating. Without it, the moment the third component flips to active
+                        // its already-active neighbours run canSurvive against a half-built multiblock,
+                        // fail, and delete themselves - so the furnace destroys itself as it is completed.
+                        levelAccessor.setBlock(
+                            mutableBlockPos,
+                            ACBlockRegistry.NUCLEAR_FURNACE_COMPONENT.get().defaultBlockState().setValue(ACTIVE, active),
+                            Block.UPDATE_NEIGHBORS | Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE
+                        );
                     }
                 }
             }
