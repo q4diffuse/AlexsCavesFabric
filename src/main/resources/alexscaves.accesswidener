@@ -13,3 +13,4 @@ accessible method net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator cr
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context <init> (Lnet/minecraft/world/level/levelgen/SurfaceSystem;Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/world/level/levelgen/NoiseChunk;Ljava/util/function/Function;Lnet/minecraft/core/Registry;Lnet/minecraft/world/level/levelgen/WorldGenerationContext;)V
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateXZ (II)V
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateY (IIIIII)V
+accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlockStates (Lnet/minecraft/core/Holder;Ljava/util/Set;)V

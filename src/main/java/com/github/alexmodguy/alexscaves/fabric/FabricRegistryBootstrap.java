@@ -67,6 +67,7 @@ final class FabricRegistryBootstrap {
             ACEntityDataRegistry.DEF_REG
         );
         ACEntityDataRegistry.registerFabricSerializers();
+        ACPOIRegistry.registerFabricBlockStates();
         ACDataComponentRegistry.init(null);
         ACFluidRegistry.postInit();
         bootstrapEntities();

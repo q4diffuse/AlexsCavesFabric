@@ -3,7 +3,9 @@ package com.github.alexmodguy.alexscaves.server.block.poi;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -12,8 +14,8 @@ import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.List;
 import java.util.Set;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ACPOIRegistry {
 
@@ -27,6 +29,37 @@ public class ACPOIRegistry {
     public static final DeferredHolder<PoiType, PoiType> SUNDROP = DEF_REG.register("sundrop", () -> new PoiType(getAllStatesOf(ACBlockRegistry.SUNDROP.get()), 32, 6));
     public static final DeferredHolder<PoiType, PoiType> CONVERSION_CRUCIBLE = DEF_REG.register("conversion_crucible", () -> new PoiType(getAllStatesOf(ACBlockRegistry.CONVERSION_CRUCIBLE.get()), 0, 6));
     public static final DeferredHolder<PoiType, PoiType> GINGERBARREL = DEF_REG.register("gingerbarrel", () -> new PoiType(getAllStatesOf(ACBlockRegistry.GINGERBARREL.get()), 0, 6));
+
+    private static final List<DeferredHolder<PoiType, PoiType>> ALL = List.of(
+        ATTRACTING_MAGNETS,
+        REPELLING_MAGNETS,
+        NUCLEAR_SIREN,
+        NUCLEAR_FURNACE,
+        ABYSSAL_ALTAR,
+        MOTH_BALL,
+        SUNDROP,
+        CONVERSION_CRUCIBLE,
+        GINGERBARREL
+    );
+
+    private static boolean fabricBlockStatesRegistered = false;
+
+    /**
+     * Forge/NeoForge automatically feed every registered PoiType's block states into the vanilla
+     * {@code PoiTypes} state lookup. Fabric does not, so without this the PoiManager never records
+     * any of our POIs and everything that searches for them (magnets, sirens, altars) silently
+     * does nothing.
+     */
+    public static void registerFabricBlockStates() {
+        if (fabricBlockStatesRegistered) {
+            return;
+        }
+        fabricBlockStatesRegistered = true;
+        for (DeferredHolder<PoiType, PoiType> holder : ALL) {
+            Holder.Reference<PoiType> reference = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(holder.getKey());
+            PoiTypes.registerBlockStates(reference, reference.value().matchingStates());
+        }
+    }
 
     private static Set<BlockState> getAllAttractingMagnets() {
         ImmutableSet.Builder<BlockState> builder = ImmutableSet.builder();
