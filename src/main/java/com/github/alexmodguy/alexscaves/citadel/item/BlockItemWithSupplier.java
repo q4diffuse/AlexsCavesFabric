@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.item;
+package com.github.alexmodguy.alexscaves.citadel.item;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;

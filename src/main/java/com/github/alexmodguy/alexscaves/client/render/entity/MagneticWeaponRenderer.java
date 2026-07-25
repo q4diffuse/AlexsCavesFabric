@@ -2,8 +2,8 @@ package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.server.entity.item.MagneticWeaponEntity;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexthe666.citadel.client.render.LightningBoltData;
-import com.github.alexthe666.citadel.client.render.LightningRender;
+import com.github.alexmodguy.alexscaves.citadel.client.render.LightningBoltData;
+import com.github.alexmodguy.alexscaves.citadel.client.render.LightningRender;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;

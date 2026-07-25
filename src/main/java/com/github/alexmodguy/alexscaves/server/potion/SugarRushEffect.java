@@ -1,9 +1,9 @@
 package com.github.alexmodguy.alexscaves.server.potion;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
-import com.github.alexthe666.citadel.server.tick.modifier.LocalEntityTickRateModifier;
-import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.ServerTickRateTracker;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.LocalEntityTickRateModifier;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;

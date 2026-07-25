@@ -1,7 +1,7 @@
-package com.github.alexthe666.citadel.server.tick;
+package com.github.alexmodguy.alexscaves.citadel.server.tick;
 
-import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
-import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifierType;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifier;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifierType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;

@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.server.message;
+package com.github.alexmodguy.alexscaves.citadel.server.message;
 
-import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.CitadelEntityData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record PropertiesMessage(String identifier, CompoundTag tag, int entityId) implements CustomPacketPayload {
-    public static final Type<PropertiesMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("citadel", "properties"));
+    public static final Type<PropertiesMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("alexscaves", "citadel_properties"));
     public static final StreamCodec<FriendlyByteBuf, PropertiesMessage> CODEC = StreamCodec.ofMember(PropertiesMessage::write, PropertiesMessage::read);
 
     public static PropertiesMessage read(FriendlyByteBuf buf) {

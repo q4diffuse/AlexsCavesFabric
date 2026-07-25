@@ -3,7 +3,7 @@ package com.github.alexmodguy.alexscaves.server.recipe;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CaveInfoItem;
 import com.github.alexmodguy.alexscaves.server.item.CaveMapItem;
-import com.github.alexthe666.citadel.recipe.SpecialRecipeInGuideBook;
+import com.github.alexmodguy.alexscaves.citadel.recipe.SpecialRecipeInGuideBook;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceKey;

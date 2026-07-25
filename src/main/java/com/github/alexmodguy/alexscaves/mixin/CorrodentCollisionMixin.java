@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.mixin;
 
 import com.github.alexmodguy.alexscaves.server.entity.living.CorrodentEntity;
-import com.github.alexthe666.citadel.server.entity.collision.ICustomCollisions;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.collision.ICustomCollisions;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;

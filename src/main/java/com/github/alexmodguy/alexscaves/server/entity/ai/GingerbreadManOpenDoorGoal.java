@@ -3,7 +3,7 @@ package com.github.alexmodguy.alexscaves.server.entity.ai;
 import com.github.alexmodguy.alexscaves.server.block.GingerbreadDoorBlock;
 import com.github.alexmodguy.alexscaves.server.entity.living.GingerbreadManEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.VallumraptorEntity;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import com.github.alexmodguy.alexscaves.citadel.animation.IAnimatedEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
-import com.github.alexthe666.citadel.animation.Animation;
+import com.github.alexmodguy.alexscaves.citadel.animation.Animation;
 import com.google.common.collect.Sets;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;

@@ -10,9 +10,9 @@ import com.github.alexmodguy.alexscaves.server.entity.util.WatcherPossessionAcce
 import com.github.alexmodguy.alexscaves.server.message.PossessionKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACRuntimeData;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import com.github.alexthe666.citadel.animation.Animation;
-import com.github.alexthe666.citadel.animation.AnimationHandler;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import com.github.alexmodguy.alexscaves.citadel.animation.Animation;
+import com.github.alexmodguy.alexscaves.citadel.animation.AnimationHandler;
+import com.github.alexmodguy.alexscaves.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

@@ -11,8 +11,8 @@ import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
-import com.github.alexthe666.citadel.server.entity.IDancesToJukebox;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.IAdvancedPathingMob;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.IDancesToJukebox;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.IAdvancedPathingMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;

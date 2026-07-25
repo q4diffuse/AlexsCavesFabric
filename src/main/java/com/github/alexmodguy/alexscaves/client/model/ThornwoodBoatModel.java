@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.model;
 
-import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
-import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
+import com.github.alexmodguy.alexscaves.citadel.client.model.AdvancedModelBox;
+import com.github.alexmodguy.alexscaves.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.vehicle.Boat;
 

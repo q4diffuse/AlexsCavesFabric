@@ -6,9 +6,9 @@ import com.github.alexmodguy.alexscaves.server.entity.ai.GroundPathNavigatorNoSp
 import com.github.alexmodguy.alexscaves.server.entity.item.ThrownWasteDrumEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
-import com.github.alexthe666.citadel.animation.Animation;
-import com.github.alexthe666.citadel.animation.AnimationHandler;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import com.github.alexmodguy.alexscaves.citadel.animation.Animation;
+import com.github.alexmodguy.alexscaves.citadel.animation.AnimationHandler;
+import com.github.alexmodguy.alexscaves.citadel.animation.IAnimatedEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

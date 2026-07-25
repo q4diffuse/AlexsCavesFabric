@@ -12,7 +12,7 @@ import com.github.alexmodguy.alexscaves.server.entity.living.GumbeeperEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.LicowitchEntity;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
-import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
+import com.github.alexmodguy.alexscaves.citadel.client.shader.PostEffectRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

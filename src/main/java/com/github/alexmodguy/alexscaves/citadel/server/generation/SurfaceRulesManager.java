@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.generation;
+package com.github.alexmodguy.alexscaves.citadel.server.generation;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.level.levelgen.SurfaceRules;

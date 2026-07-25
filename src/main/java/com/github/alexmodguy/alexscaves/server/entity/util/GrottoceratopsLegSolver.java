@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
-import com.github.alexthe666.citadel.animation.LegSolver;
+import com.github.alexmodguy.alexscaves.citadel.animation.LegSolver;
 
 public class GrottoceratopsLegSolver extends LegSolver {
     public final LegSolver.Leg backLeft;

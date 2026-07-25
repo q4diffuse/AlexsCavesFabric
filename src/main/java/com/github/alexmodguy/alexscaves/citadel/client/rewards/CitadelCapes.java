@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.client.rewards;
+package com.github.alexmodguy.alexscaves.citadel.client.rewards;
 
-import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.CitadelEntityData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;

@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexthe666.citadel.client.rewards.CitadelCapes;
+import com.github.alexmodguy.alexscaves.citadel.client.rewards.CitadelCapes;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;

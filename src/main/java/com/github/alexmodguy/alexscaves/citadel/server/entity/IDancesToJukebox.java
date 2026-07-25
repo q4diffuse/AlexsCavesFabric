@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.server.entity;
+package com.github.alexmodguy.alexscaves.citadel.server.entity;
 
-import com.github.alexthe666.citadel.server.message.DanceJukeboxMessage;
+import com.github.alexmodguy.alexscaves.citadel.server.message.DanceJukeboxMessage;
 import net.minecraft.core.BlockPos;
 import net.neoforged.neoforge.network.PacketDistributor;
 

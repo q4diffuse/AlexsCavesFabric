@@ -10,7 +10,7 @@ import com.github.alexmodguy.alexscaves.server.message.UpdateEffectVisualityEnti
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.message.UpdateMagneticDataMessage;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
+import com.github.alexmodguy.alexscaves.citadel.server.message.PropertiesMessage;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 

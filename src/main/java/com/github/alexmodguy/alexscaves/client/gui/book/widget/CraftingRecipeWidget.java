@@ -2,7 +2,7 @@ package com.github.alexmodguy.alexscaves.client.gui.book.widget;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
-import com.github.alexthe666.citadel.recipe.SpecialRecipeInGuideBook;
+import com.github.alexmodguy.alexscaves.citadel.recipe.SpecialRecipeInGuideBook;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mojang.blaze3d.vertex.PoseStack;

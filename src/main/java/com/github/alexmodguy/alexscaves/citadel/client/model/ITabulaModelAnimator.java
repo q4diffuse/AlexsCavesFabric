@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.client.model;
+package com.github.alexmodguy.alexscaves.citadel.client.model;
 
 import net.minecraft.world.entity.Entity;
 

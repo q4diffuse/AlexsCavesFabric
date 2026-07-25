@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.config;
+package com.github.alexmodguy.alexscaves.citadel.config;
 
 public class ServerConfig {
     public static boolean aprilFools = false;

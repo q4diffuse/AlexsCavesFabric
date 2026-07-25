@@ -1,7 +1,7 @@
-package com.github.alexthe666.citadel.client.tick;
+package com.github.alexmodguy.alexscaves.citadel.client.tick;
 
-import com.github.alexthe666.citadel.server.tick.TickRateTracker;
-import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.TickRateTracker;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifier;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

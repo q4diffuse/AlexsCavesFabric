@@ -2,7 +2,7 @@ package com.github.alexmodguy.alexscaves.server.level.surface;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
-import com.github.alexthe666.citadel.server.generation.SurfaceRulesManager;
+import com.github.alexmodguy.alexscaves.citadel.server.generation.SurfaceRulesManager;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Noises;

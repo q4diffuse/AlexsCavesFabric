@@ -1,9 +1,9 @@
-package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms;
+package com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms;
 /*
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.thread.BlockableEventLoop;
 import net.neoforged.fml.LogicalSide;

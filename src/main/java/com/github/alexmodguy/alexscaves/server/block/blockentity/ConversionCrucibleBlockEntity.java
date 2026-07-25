@@ -11,7 +11,7 @@ import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry
 import com.github.alexmodguy.alexscaves.server.misc.ACDummyBiomeSource;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
-import com.github.alexthe666.citadel.server.generation.SurfaceRulesManager;
+import com.github.alexmodguy.alexscaves.citadel.server.generation.SurfaceRulesManager;
 import net.minecraft.Util;
 import net.minecraft.core.*;
 import net.minecraft.core.HolderLookup;

@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel;
+package com.github.alexmodguy.alexscaves.citadel;
 
 import net.minecraft.nbt.CompoundTag;
 import org.apache.logging.log4j.LogManager;

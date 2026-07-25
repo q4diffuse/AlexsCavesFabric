@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.block;
+package com.github.alexmodguy.alexscaves.citadel.server.block;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

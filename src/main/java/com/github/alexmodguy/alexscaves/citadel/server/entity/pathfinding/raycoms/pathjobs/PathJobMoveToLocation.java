@@ -1,11 +1,11 @@
-package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs;
+package com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.pathjobs;
 /*
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.Pathfinding;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.MNode;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.Pathfinding;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.LivingEntity;

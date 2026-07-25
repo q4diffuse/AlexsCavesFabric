@@ -1,9 +1,9 @@
-package com.github.alexthe666.citadel.client.model;
+package com.github.alexmodguy.alexscaves.citadel.client.model;
 
-import com.github.alexthe666.citadel.client.model.container.TabulaCubeContainer;
-import com.github.alexthe666.citadel.client.model.container.TabulaCubeGroupContainer;
-import com.github.alexthe666.citadel.client.model.container.TabulaModelBlock;
-import com.github.alexthe666.citadel.client.model.container.TabulaModelContainer;
+import com.github.alexmodguy.alexscaves.citadel.client.model.container.TabulaCubeContainer;
+import com.github.alexmodguy.alexscaves.citadel.client.model.container.TabulaCubeGroupContainer;
+import com.github.alexmodguy.alexscaves.citadel.client.model.container.TabulaModelBlock;
+import com.github.alexmodguy.alexscaves.citadel.client.model.container.TabulaModelContainer;
 import com.google.gson.*;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;

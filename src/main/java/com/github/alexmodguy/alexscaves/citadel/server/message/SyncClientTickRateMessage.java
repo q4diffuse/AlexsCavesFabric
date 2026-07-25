@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.message;
+package com.github.alexmodguy.alexscaves.citadel.server.message;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SyncClientTickRateMessage(CompoundTag compound) implements CustomPacketPayload {
-    public static final Type<SyncClientTickRateMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("citadel", "tick_rate"));
+    public static final Type<SyncClientTickRateMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("alexscaves", "citadel_tick_rate"));
     public static final StreamCodec<FriendlyByteBuf, SyncClientTickRateMessage> CODEC = StreamCodec.ofMember(SyncClientTickRateMessage::write, SyncClientTickRateMessage::read);
 
     public static void write(SyncClientTickRateMessage message, FriendlyByteBuf buf) {

@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render;
 
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
-import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
+import com.github.alexmodguy.alexscaves.citadel.client.shader.PostEffectRegistry;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;

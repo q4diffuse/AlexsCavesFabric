@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.message;
+package com.github.alexmodguy.alexscaves.citadel.server.message;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.CompoundTag;

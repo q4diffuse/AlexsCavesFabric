@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.client.model.container;
+package com.github.alexmodguy.alexscaves.citadel.client.model.container;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;

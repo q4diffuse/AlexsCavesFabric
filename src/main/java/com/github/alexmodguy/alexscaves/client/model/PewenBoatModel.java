@@ -3,8 +3,8 @@ package com.github.alexmodguy.alexscaves.client.model;// Made with Blockbench 4.
 // Paste this class into your mod and generate all required imports
 
 
-import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
-import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
+import com.github.alexmodguy.alexscaves.citadel.client.model.AdvancedModelBox;
+import com.github.alexmodguy.alexscaves.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.vehicle.Boat;
 

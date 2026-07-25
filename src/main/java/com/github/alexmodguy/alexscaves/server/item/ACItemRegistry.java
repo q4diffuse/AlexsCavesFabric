@@ -11,7 +11,7 @@ import com.github.alexmodguy.alexscaves.server.item.dispenser.FluidContainerDisp
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACProjectileDispenseBehavior;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import com.github.alexthe666.citadel.server.block.LecternBooks;
+import com.github.alexmodguy.alexscaves.citadel.server.block.LecternBooks;
 import net.minecraft.core.*;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;

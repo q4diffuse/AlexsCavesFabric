@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.level.biome;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexthe666.citadel.server.world.ExpandedBiomes;
+import com.github.alexmodguy.alexscaves.citadel.server.world.ExpandedBiomes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;

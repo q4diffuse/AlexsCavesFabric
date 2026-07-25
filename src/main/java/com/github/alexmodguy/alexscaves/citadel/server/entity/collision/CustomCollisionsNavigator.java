@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.entity.collision;
+package com.github.alexmodguy.alexscaves.citadel.server.entity.collision;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;

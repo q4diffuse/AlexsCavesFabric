@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.server.world;
+package com.github.alexmodguy.alexscaves.citadel.server.world;
 
-import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.ServerTickRateTracker;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 
 public class CitadelServerData extends SavedData {
 
-    private static final String IDENTIFIER = "citadel_world_data";
+    private static final String IDENTIFIER = "alexscaves_citadel_world_data";
 
     private MinecraftServer server;
 

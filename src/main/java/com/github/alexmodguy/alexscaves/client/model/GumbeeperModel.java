@@ -3,9 +3,9 @@ package com.github.alexmodguy.alexscaves.client.model;
 import com.github.alexmodguy.alexscaves.server.entity.living.CaniacEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumbeeperEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
-import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
-import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
-import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
+import com.github.alexmodguy.alexscaves.citadel.client.model.AdvancedEntityModel;
+import com.github.alexmodguy.alexscaves.citadel.client.model.AdvancedModelBox;
+import com.github.alexmodguy.alexscaves.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 
 public class GumbeeperModel extends AdvancedEntityModel<GumbeeperEntity> {

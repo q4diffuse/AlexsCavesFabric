@@ -9,7 +9,7 @@ import com.github.alexmodguy.alexscaves.server.block.grower.PewenGrower;
 import com.github.alexmodguy.alexscaves.server.block.grower.ThornwoodGrower;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.item.*;
-import com.github.alexthe666.citadel.item.BlockItemWithSupplier;
+import com.github.alexmodguy.alexscaves.citadel.item.BlockItemWithSupplier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.food.FoodProperties;

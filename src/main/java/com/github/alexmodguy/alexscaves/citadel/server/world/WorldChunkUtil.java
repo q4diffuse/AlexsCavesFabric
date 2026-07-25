@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.world;
+package com.github.alexmodguy.alexscaves.citadel.server.world;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;

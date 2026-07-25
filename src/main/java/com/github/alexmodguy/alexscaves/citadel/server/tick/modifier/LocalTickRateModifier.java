@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.tick.modifier;
+package com.github.alexmodguy.alexscaves.citadel.server.tick.modifier;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;

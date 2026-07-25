@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.config;
 
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;

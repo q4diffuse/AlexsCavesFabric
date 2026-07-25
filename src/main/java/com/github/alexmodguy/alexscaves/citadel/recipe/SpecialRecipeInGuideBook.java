@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.recipe;
+package com.github.alexmodguy.alexscaves.citadel.recipe;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;

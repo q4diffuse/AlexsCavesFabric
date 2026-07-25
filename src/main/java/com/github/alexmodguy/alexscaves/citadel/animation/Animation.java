@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.animation;
+package com.github.alexmodguy.alexscaves.citadel.animation;
 
 /**
  * @author Alexthe666

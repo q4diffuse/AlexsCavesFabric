@@ -1,12 +1,12 @@
-package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs;
+package com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.pathjobs;
 /*
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.*;
-import com.github.alexthe666.citadel.server.message.SyncePathMessage;
-import com.github.alexthe666.citadel.server.message.SyncPathReachedMessage;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.*;
+import com.github.alexmodguy.alexscaves.citadel.server.message.SyncePathMessage;
+import com.github.alexmodguy.alexscaves.citadel.server.message.SyncPathReachedMessage;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,9 +37,9 @@ import java.lang.ref.WeakReference;
 import java.util.*;
 import java.util.concurrent.Callable;
 
-import static com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathfindingConstants.*;
-import static com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.SurfaceType.getSurfaceType;
-import static com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.SurfaceType.isWater;
+import static com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.PathfindingConstants.*;
+import static com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.SurfaceType.getSurfaceType;
+import static com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.SurfaceType.isWater;
 
 /**
  * Abstract class for Jobs that run in the multithreaded path finder.

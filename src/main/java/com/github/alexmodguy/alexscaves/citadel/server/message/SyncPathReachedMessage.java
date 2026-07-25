@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.message;
+package com.github.alexmodguy.alexscaves.citadel.server.message;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class SyncPathReachedMessage implements CustomPacketPayload {
     public static final Type<SyncPathReachedMessage> TYPE =
-        new Type<>(ResourceLocation.fromNamespaceAndPath("citadel", "sync_path_reached"));
+        new Type<>(ResourceLocation.fromNamespaceAndPath("alexscaves", "citadel_sync_path_reached"));
 
     private final Set<BlockPos> reached;
 

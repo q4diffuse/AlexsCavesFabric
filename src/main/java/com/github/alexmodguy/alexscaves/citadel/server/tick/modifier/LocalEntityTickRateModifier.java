@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.server.tick.modifier;
+package com.github.alexmodguy.alexscaves.citadel.server.tick.modifier;
 
-import com.github.alexthe666.citadel.server.entity.IModifiesTime;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.IModifiesTime;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;

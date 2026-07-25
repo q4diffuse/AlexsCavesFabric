@@ -3,7 +3,7 @@ package com.github.alexmodguy.alexscaves.server.entity.ai;
 import com.github.alexmodguy.alexscaves.server.misc.ACItemCompat;
 import com.github.alexmodguy.alexscaves.server.entity.living.GloomothEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.VesperEntity;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import com.github.alexmodguy.alexscaves.citadel.animation.IAnimatedEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;

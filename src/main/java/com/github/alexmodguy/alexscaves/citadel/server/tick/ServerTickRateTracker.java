@@ -1,9 +1,9 @@
-package com.github.alexthe666.citadel.server.tick;
+package com.github.alexmodguy.alexscaves.citadel.server.tick;
 
-import com.github.alexthe666.citadel.server.message.SyncClientTickRateMessage;
-import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
-import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifierType;
-import com.github.alexthe666.citadel.server.world.CitadelServerData;
+import com.github.alexmodguy.alexscaves.citadel.server.message.SyncClientTickRateMessage;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifier;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifierType;
+import com.github.alexmodguy.alexscaves.citadel.server.world.CitadelServerData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;

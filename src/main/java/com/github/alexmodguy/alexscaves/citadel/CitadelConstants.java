@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel;
+package com.github.alexmodguy.alexscaves.citadel;
 
-import com.github.alexthe666.citadel.config.ServerConfig;
+import com.github.alexmodguy.alexscaves.citadel.config.ServerConfig;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.client.model;
+package com.github.alexmodguy.alexscaves.citadel.client.model;
 
-import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
+import com.github.alexmodguy.alexscaves.citadel.client.model.basic.BasicModelPart;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

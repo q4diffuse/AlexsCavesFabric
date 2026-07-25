@@ -1,14 +1,14 @@
-package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms;
+package com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms;
 /*
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.AbstractPathJob;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobMoveAwayFromLocation;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobMoveToLocation;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobRandomPos;
-import com.github.alexthe666.citadel.server.world.WorldChunkUtil;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.pathjobs.AbstractPathJob;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobMoveAwayFromLocation;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobMoveToLocation;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobRandomPos;
+import com.github.alexmodguy.alexscaves.citadel.server.world.WorldChunkUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;

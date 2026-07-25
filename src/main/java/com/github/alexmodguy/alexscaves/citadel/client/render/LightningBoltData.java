@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.client.render;
+package com.github.alexmodguy.alexscaves.citadel.client.render;
 
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Pair;

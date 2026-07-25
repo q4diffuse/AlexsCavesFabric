@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.server.block.MetalScaffoldingBlock;
-import com.github.alexthe666.citadel.item.BlockItemWithSupplier;
+import com.github.alexmodguy.alexscaves.citadel.item.BlockItemWithSupplier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

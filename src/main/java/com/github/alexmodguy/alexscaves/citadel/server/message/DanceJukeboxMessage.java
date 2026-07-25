@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.message;
+package com.github.alexmodguy.alexscaves.citadel.server.message;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record DanceJukeboxMessage(int entityId, boolean dancing, BlockPos pos) implements CustomPacketPayload {
-    public static final Type<DanceJukeboxMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("citadel", "dance_jukebox"));
+    public static final Type<DanceJukeboxMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("alexscaves", "citadel_dance_jukebox"));
     public static final StreamCodec<FriendlyByteBuf, DanceJukeboxMessage> CODEC = StreamCodec.ofMember(DanceJukeboxMessage::write, DanceJukeboxMessage::read);
 
     public static DanceJukeboxMessage read(FriendlyByteBuf buf) {

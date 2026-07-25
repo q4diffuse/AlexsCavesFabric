@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.server.entity;
+package com.github.alexmodguy.alexscaves.citadel.server.entity;
 
-import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifier;
 
 public interface IModifiesTime {
 

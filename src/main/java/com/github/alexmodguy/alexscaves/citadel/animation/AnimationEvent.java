@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.animation;
+package com.github.alexmodguy.alexscaves.citadel.animation;
 
 import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.Event;

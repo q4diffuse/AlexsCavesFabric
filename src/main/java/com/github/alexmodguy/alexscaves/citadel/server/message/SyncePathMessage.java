@@ -1,7 +1,7 @@
-package com.github.alexthe666.citadel.server.message;
+package com.github.alexmodguy.alexscaves.citadel.server.message;
 
-import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.MNode;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class SyncePathMessage implements CustomPacketPayload {
     public static final Type<SyncePathMessage> TYPE =
-        new Type<>(ResourceLocation.fromNamespaceAndPath("citadel", "sync_path"));
+        new Type<>(ResourceLocation.fromNamespaceAndPath("alexscaves", "citadel_sync_path"));
 
     private final Set<MNode> visited;
     private final Set<MNode> notVisited;

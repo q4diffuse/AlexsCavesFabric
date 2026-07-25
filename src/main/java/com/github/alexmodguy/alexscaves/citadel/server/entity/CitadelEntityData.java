@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.server.entity;
+package com.github.alexmodguy.alexscaves.citadel.server.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;

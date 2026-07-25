@@ -1,7 +1,7 @@
-package com.github.alexthe666.citadel.client.model;
+package com.github.alexmodguy.alexscaves.citadel.client.model;
 
-import com.github.alexthe666.citadel.animation.IScaleable;
-import com.github.alexthe666.citadel.animation.LegSolverQuadruped;
+import com.github.alexmodguy.alexscaves.citadel.animation.IScaleable;
+import com.github.alexmodguy.alexscaves.citadel.animation.LegSolverQuadruped;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 

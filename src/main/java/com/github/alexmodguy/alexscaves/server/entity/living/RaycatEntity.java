@@ -7,7 +7,7 @@ import com.github.alexmodguy.alexscaves.server.entity.ai.RaycatSitOnBlockGoal;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
-import com.github.alexthe666.citadel.server.entity.IComandableMob;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.IComandableMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

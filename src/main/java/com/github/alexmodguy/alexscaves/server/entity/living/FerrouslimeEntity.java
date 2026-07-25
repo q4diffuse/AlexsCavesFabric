@@ -7,7 +7,7 @@ import com.github.alexmodguy.alexscaves.server.entity.ai.AdvancedPathNavigateNoT
 import com.github.alexmodguy.alexscaves.server.entity.ai.MobTarget3DGoal;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

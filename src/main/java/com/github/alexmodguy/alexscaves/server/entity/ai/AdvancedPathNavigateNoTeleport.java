@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.entity.ai;
 
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathingStuckHandler;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms.PathingStuckHandler;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 

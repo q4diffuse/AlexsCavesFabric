@@ -17,7 +17,7 @@ import com.github.alexmodguy.alexscaves.server.message.UpdateEffectVisualityEnti
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.message.UpdateMagneticDataMessage;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
+import com.github.alexmodguy.alexscaves.citadel.server.message.PropertiesMessage;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.client.model.basic;
+package com.github.alexmodguy.alexscaves.citadel.client.model.basic;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

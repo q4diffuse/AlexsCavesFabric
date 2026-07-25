@@ -25,7 +25,7 @@ import com.github.alexmodguy.alexscaves.server.misc.CaveBookProgress;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
 import com.github.alexmodguy.alexscaves.server.potion.SugarRushEffect;
-import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
+import com.github.alexmodguy.alexscaves.citadel.server.tick.ServerTickRateTracker;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.ChatFormatting;

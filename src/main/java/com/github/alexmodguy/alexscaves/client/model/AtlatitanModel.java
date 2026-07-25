@@ -2,7 +2,7 @@ package com.github.alexmodguy.alexscaves.client.model;
 
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.server.entity.living.AtlatitanEntity;
-import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
+import com.github.alexmodguy.alexscaves.citadel.client.model.AdvancedModelBox;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

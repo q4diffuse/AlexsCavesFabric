@@ -7,7 +7,7 @@ import com.github.alexmodguy.alexscaves.server.entity.item.WaterBoltEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.WaveEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
-import com.github.alexthe666.citadel.animation.Animation;
+import com.github.alexmodguy.alexscaves.citadel.animation.Animation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;

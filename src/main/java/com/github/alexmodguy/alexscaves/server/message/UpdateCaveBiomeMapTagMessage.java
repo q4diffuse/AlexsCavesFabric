@@ -2,7 +2,7 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexthe666.citadel.server.message.PacketBufferUtils;
+import com.github.alexmodguy.alexscaves.citadel.server.message.PacketBufferUtils;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.component.CustomData;

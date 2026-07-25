@@ -1,7 +1,7 @@
-package com.github.alexthe666.citadel.client.model;
+package com.github.alexmodguy.alexscaves.citadel.client.model;
 
-import com.github.alexthe666.citadel.client.model.basic.BasicEntityModel;
-import com.github.alexthe666.citadel.client.model.container.TextureOffset;
+import com.github.alexmodguy.alexscaves.citadel.client.model.basic.BasicEntityModel;
+import com.github.alexmodguy.alexscaves.citadel.client.model.container.TextureOffset;
 import com.google.common.collect.Maps;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;

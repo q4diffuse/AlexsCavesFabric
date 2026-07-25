@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin;
 
-import com.github.alexthe666.citadel.server.generation.SurfaceRulesManager;
+import com.github.alexmodguy.alexscaves.citadel.server.generation.SurfaceRulesManager;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;

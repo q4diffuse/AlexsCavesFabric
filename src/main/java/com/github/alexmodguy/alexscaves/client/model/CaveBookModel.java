@@ -4,9 +4,9 @@ package com.github.alexmodguy.alexscaves.client.model;// Made with Blockbench 4.
 
 
 import com.github.alexmodguy.alexscaves.client.gui.book.CaveBookScreen;
-import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
-import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
-import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
+import com.github.alexmodguy.alexscaves.citadel.client.model.AdvancedEntityModel;
+import com.github.alexmodguy.alexscaves.citadel.client.model.AdvancedModelBox;
+import com.github.alexmodguy.alexscaves.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.util.Mth;

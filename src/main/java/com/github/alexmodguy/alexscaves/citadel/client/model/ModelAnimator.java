@@ -1,8 +1,8 @@
-package com.github.alexthe666.citadel.client.model;
+package com.github.alexmodguy.alexscaves.citadel.client.model;
 
-import com.github.alexthe666.citadel.animation.Animation;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
-import com.github.alexthe666.citadel.client.model.container.Transform;
+import com.github.alexmodguy.alexscaves.citadel.animation.Animation;
+import com.github.alexmodguy.alexscaves.citadel.animation.IAnimatedEntity;
+import com.github.alexmodguy.alexscaves.citadel.client.model.container.Transform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 

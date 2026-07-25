@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms;
+package com.github.alexmodguy.alexscaves.citadel.server.entity.pathfinding.raycoms;
 
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
 import net.minecraft.world.level.pathfinder.Path;
 
 import javax.annotation.Nullable;

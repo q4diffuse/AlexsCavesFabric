@@ -1,6 +1,6 @@
-package com.github.alexthe666.citadel.client.shader;
+package com.github.alexmodguy.alexscaves.citadel.client.shader;
 
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexmodguy.alexscaves.citadel.Citadel;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.GlStateManager;

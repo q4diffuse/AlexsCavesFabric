@@ -2,7 +2,7 @@ package com.github.alexmodguy.alexscaves.mixin;
 
 import com.github.alexmodguy.alexscaves.server.entity.util.FallingBlockEntityAccessor;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagnetUtil;
-import com.github.alexthe666.citadel.CitadelConstants;
+import com.github.alexmodguy.alexscaves.citadel.CitadelConstants;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
