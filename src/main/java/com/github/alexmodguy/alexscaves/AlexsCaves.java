@@ -25,7 +25,7 @@ import java.util.List;
 public class AlexsCaves {
     public static final String MODID = "alexscaves";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final String VERSION = "2.0.2-5-fabric";
+    public static final String VERSION = "2.0.2-6-fabric";
 
     public static CommonProxy PROXY = new CommonProxy();
 
