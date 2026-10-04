@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.fabric;
 
+import net.fabricmc.fabric.api.registry.LandPathNodeTypesRegistry;
+import net.minecraft.world.level.pathfinder.PathType;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
@@ -68,6 +70,7 @@ final class FabricRegistryBootstrap {
         );
         ACEntityDataRegistry.registerFabricSerializers();
         ACPOIRegistry.registerFabricBlockStates();
+        registerPathTypes();
         ACDataComponentRegistry.init(null);
         ACFluidRegistry.postInit();
         bootstrapEntities();
@@ -96,5 +99,14 @@ final class FabricRegistryBootstrap {
             FabricDefaultAttributeRegistry.register(entry.getKey(), entry.getValue());
         }
         ACEntityRegistry.spawnPlacements(new RegisterSpawnPlacementsEvent());
+    }
+
+    // NeoForge read these from IBlockExtension#getBlockPathType / getAdjacentBlockPathType / isBurning.
+    // Fabric answers PathfindingContext lookups (the block under a mob included) with the neighbour type,
+    // so primal magma reports DAMAGE_FIRE for both, exactly like vanilla magma; vanilla turns it into DANGER_FIRE next to it.
+    private static void registerPathTypes() {
+        LandPathNodeTypesRegistry.register(ACBlockRegistry.PRIMAL_MAGMA.get(), PathType.DAMAGE_FIRE, PathType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ACBlockRegistry.FISSURE_PRIMAL_MAGMA.get(), PathType.DAMAGE_FIRE, PathType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ACBlockRegistry.HAZMAT_BLOCK.get(), PathType.UNPASSABLE_RAIL, PathType.UNPASSABLE_RAIL);
     }
 }

@@ -18,6 +18,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.WalkAnimationState;
 import net.minecraft.world.level.Level;
+import com.github.alexmodguy.alexscaves.server.item.PrimitiveClubItem;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -195,7 +198,7 @@ public abstract class LivingEntityMixin extends Entity implements HeadRotationEn
 
     @Unique
     private static boolean isPossessed(Entity e) {
-        return com.github.alexmodguy.alexscaves.server.misc.ACRuntimeData.getOrCreate(e).getBoolean("TotemPossessed");
+        return com.github.alexmodguy.alexscaves.server.misc.ACRuntimeData.read(e).getBoolean("TotemPossessed");
     }
 
     @Override
@@ -206,5 +209,14 @@ public abstract class LivingEntityMixin extends Entity implements HeadRotationEn
     @Override
     public void setCitadelEntityData(CompoundTag nbt) {
         this.citadelEntityData = nbt == null ? new CompoundTag() : nbt.copy();
+    }
+
+    // NeoForge's IItemExtension#onEntitySwing: the Primitive Club skips the swing animation until recharged
+    @Inject(method = "swing(Lnet/minecraft/world/InteractionHand;Z)V", at = @At("HEAD"), cancellable = true)
+    private void ac_swing(InteractionHand hand, boolean updateSelf, CallbackInfo ci) {
+        ItemStack stack = ((LivingEntity) (Object) this).getItemInHand(hand);
+        if (stack.getItem() instanceof PrimitiveClubItem club && club.onEntitySwing(stack, (LivingEntity) (Object) this)) {
+            ci.cancel();
+        }
     }
 }

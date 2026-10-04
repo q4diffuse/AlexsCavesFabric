@@ -548,6 +548,7 @@ public class SubterranodonEntity extends DinosaurEntity implements PackAnimal, F
         }
     }
 
+    @Override
     public boolean shouldRiderSit() {
         return false;
     }
@@ -590,8 +591,15 @@ public class SubterranodonEntity extends DinosaurEntity implements PackAnimal, F
         this.walkAnimation.update(f2, 0.4F);
     }
 
+    /**
+     * Whether collide() should use the flight box that also covers the hanging rider (EntityMixin dispatches to it).
+     */
+    public boolean usesRiderFlightCollision() {
+        return this.flightCollisionBox != null && !touchingUnloadedChunk() && this.isVehicle();
+    }
+
     public Vec3 collide(Vec3 movement) {
-        if (this.flightCollisionBox != null && !touchingUnloadedChunk() && this.isVehicle()) {
+        if (usesRiderFlightCollision()) {
             AABB aabb = this.flightCollisionBox;
             List<VoxelShape> list = this.level().getEntityCollisions(this, aabb.expandTowards(movement));
             Vec3 vec3 = movement.lengthSqr() == 0.0D ? movement : collideBoundingBox(this, movement, aabb, this.level(), list);

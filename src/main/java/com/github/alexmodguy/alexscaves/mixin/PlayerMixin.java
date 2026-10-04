@@ -5,14 +5,18 @@ import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.citadel.server.entity.IModifiesTime;
 import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.LocalEntityTickRateModifier;
 import com.github.alexmodguy.alexscaves.citadel.server.tick.modifier.TickRateModifier;
+import com.github.alexmodguy.alexscaves.server.item.PrimitiveClubItem;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
@@ -46,6 +50,15 @@ public abstract class PlayerMixin extends LivingEntity implements IModifiesTime 
     public void ac_getFlyingSpeed(CallbackInfoReturnable<Float> cir) {
         if (AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get() && this.hasEffect(ACEffectRegistry.SUGAR_RUSH) && AlexsCaves.PROXY.isTickRateModificationActive(this.level())) {
             cir.setReturnValue(this.getSpeed() * 0.5F);
+        }
+    }
+
+    // NeoForge's IItemExtension#onLeftClickEntity: the Primitive Club refuses to attack until recharged
+    @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
+    private void ac_attack(Entity target, CallbackInfo ci) {
+        ItemStack stack = this.getMainHandItem();
+        if (stack.getItem() instanceof PrimitiveClubItem club && club.onLeftClickEntity(stack, (Player) (Object) this, target)) {
+            ci.cancel();
         }
     }
 

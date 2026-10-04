@@ -109,7 +109,8 @@ public class GingerbreadManStealGoal extends Goal {
             return false;
         }
         if (entity instanceof Player player) {
-            for (ItemStack stack : player.getInventory().items) {
+            for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+                ItemStack stack = player.getInventory().getItem(slot);
                 if (stack.is(ACTagRegistry.GINGERBREAD_MAN_STEALS)) {
                     return true;
                 }
@@ -134,14 +135,14 @@ public class GingerbreadManStealGoal extends Goal {
     public ItemStack stealOneFrom(Entity entity) {
         if (entity instanceof Player player) {
             List<Integer> validSlots = new ArrayList<>();
-            for (int i = 0; i < player.getInventory().items.size(); i++) {
-                if (player.getInventory().items.get(i).is(ACTagRegistry.GINGERBREAD_MAN_STEALS)) {
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                if (player.getInventory().getItem(i).is(ACTagRegistry.GINGERBREAD_MAN_STEALS)) {
                     validSlots.add(i);
                 }
             }
             if (!validSlots.isEmpty()) {
                 int slotId = Util.getRandom(validSlots, gingerbreadMan.getRandom());
-                ItemStack stack = player.getInventory().items.get(slotId);
+                ItemStack stack = player.getInventory().getItem(slotId);
                 ItemStack copy = stack.copy();
                 copy.setCount(1);
                 stack.shrink(1);

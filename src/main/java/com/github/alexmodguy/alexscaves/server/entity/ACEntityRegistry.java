@@ -22,9 +22,9 @@ public class ACEntityRegistry {
 
 
     public static final DeferredRegister<EntityType<?>> DEF_REG = DeferredRegister.create(Registries.ENTITY_TYPE, AlexsCaves.MODID);
-    // Fabric has no enum extension support for custom mob categories.
-    public static final MobCategory CAVE_CREATURE = MobCategory.CREATURE;
-    public static final MobCategory DEEP_SEA_CREATURE = MobCategory.WATER_CREATURE;
+    // Custom MobCategory values appended by MobCategoryMixin (Fabric has no enum extension support).
+    public static final MobCategory CAVE_CREATURE = ACMobCategories.caveCreature();
+    public static final MobCategory DEEP_SEA_CREATURE = ACMobCategories.deepSeaCreature();
     public static final DeferredHolder<EntityType<?>, EntityType<AlexsCavesBoatEntity>> BOAT = DEF_REG.register("boat", () -> (EntityType) EntityType.Builder.of(AlexsCavesBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build(entityId("boat")));
     public static final DeferredHolder<EntityType<?>, EntityType<AlexsCavesChestBoatEntity>> CHEST_BOAT = DEF_REG.register("chest_boat", () -> (EntityType) EntityType.Builder.of(AlexsCavesChestBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build(entityId("chest_boat")));
     public static final DeferredHolder<EntityType<?>, EntityType<MovingMetalBlockEntity>> MOVING_METAL_BLOCK = DEF_REG.register("moving_metal_block", () -> (EntityType) EntityType.Builder.of(MovingMetalBlockEntity::new, MobCategory.MISC).sized(0.99F, 0.99F).updateInterval(1).updateInterval(10).clientTrackingRange(20).build(entityId("moving_metal_block")));

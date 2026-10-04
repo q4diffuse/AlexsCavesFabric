@@ -146,6 +146,9 @@ public class CommonProxy {
     public void setBossBarRender(UUID bossBar, int renderType) {
     }
 
+    public void syncClientTickRate(net.minecraft.nbt.CompoundTag tag) {
+    }
+
     public boolean isTickRateModificationActive(Level level) {
         return ServerTickRateTracker.getForServer(level.getServer()).getServerTickLengthMs() != 50;
     }

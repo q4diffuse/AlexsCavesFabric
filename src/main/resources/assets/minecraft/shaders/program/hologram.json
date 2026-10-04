@@ -5,7 +5,7 @@
     "dstrgb": "zero"
   },
   "vertex": "sobel",
-  "fragment": "alexscaves:hologram",
+  "fragment": "hologram",
   "attributes": ["Position"],
   "samplers": [
     { "name": "DiffuseSampler" }

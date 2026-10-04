@@ -2,6 +2,9 @@ package com.github.alexmodguy.alexscaves.mixin.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.github.alexmodguy.alexscaves.server.block.EnergizedGalenaBlock;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -18,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
@@ -266,4 +270,12 @@ public abstract class LevelRendererMixin {
             cir.setReturnValue(i << 20 | (j) << 4);
         }
     }
+
+    // Fabric replacement for Citadel's EventGetOutlineColor
+    @WrapOperation(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;getTeamColor()I"))
+    private int ac_getOutlineColor(Entity entity, Operation<Integer> original) {
+        Integer color = ClientEvents.getOutlineColor(entity);
+        return color != null ? color : original.call(entity);
+    }
+
 }

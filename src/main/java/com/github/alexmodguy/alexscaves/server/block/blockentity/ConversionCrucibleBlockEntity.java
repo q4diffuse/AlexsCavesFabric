@@ -425,12 +425,9 @@ public class ConversionCrucibleBlockEntity extends BlockEntity {
     @Override
     public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
         super.loadAdditional(compound, registries);
-        if (compound.contains("WantStack")) {
-            this.wantStack = ItemStack.parseOptional(registries, compound.getCompound("WantStack"));
-        }
-        if (compound.contains("DisplayStack")) {
-            this.displayStack = ItemStack.parseOptional(registries, compound.getCompound("DisplayStack"));
-        }
+        // empty stacks are not saved, so clear them first or the client keeps showing a consumed item
+        this.wantStack = compound.contains("WantStack") ? ItemStack.parseOptional(registries, compound.getCompound("WantStack")) : ItemStack.EMPTY;
+        this.displayStack = compound.contains("DisplayStack") ? ItemStack.parseOptional(registries, compound.getCompound("DisplayStack")) : ItemStack.EMPTY;
         if (compound.contains("ConvertingToBiome")) {
             convertingToBiome = ResourceKey.create(Registries.BIOME, ResourceLocation.parse(compound.getString("ConvertingToBiome")));
         }

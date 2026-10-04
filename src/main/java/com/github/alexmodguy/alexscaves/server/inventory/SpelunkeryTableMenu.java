@@ -221,7 +221,7 @@ public class SpelunkeryTableMenu extends AbstractContainerMenu {
     }
 
     public static boolean hasCompletedTutorial(Player player) {
-        return ACRuntimeData.getOrCreate(player).getBoolean(NEEDS_TUTORIAL_IDENTIFIER);
+        return ACRuntimeData.read(player).getBoolean(NEEDS_TUTORIAL_IDENTIFIER);
     }
 
     public void makeStoneParticles(Level level, BlockPos blockPos) {

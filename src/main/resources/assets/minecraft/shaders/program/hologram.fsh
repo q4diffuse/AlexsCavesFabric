@@ -59,5 +59,7 @@ void main() {
     vec4 rgb = texture(DiffuseSampler, texCoord + offset);
     vec3 hsv = RGBtoHSV(rgb.rgb * vec3(lineColor, lineColor, lineColor));
     hsv.x = fract(0.55);
+    // brighter than the original, with a floor so dark skins (black suits) still read; the glow is additive
+    hsv.z = min(hsv.z * 1.25 + 0.08 * clamp(rgb.a, 0.0, 1.0), 1.0);
     fragColor = vec4(HSVtoRGB(hsv), 1.0);
 }

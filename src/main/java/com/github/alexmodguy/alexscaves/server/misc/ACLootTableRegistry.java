@@ -20,6 +20,8 @@ public class ACLootTableRegistry {
 
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<? extends IGlobalLootModifier>> CAVE_TABLET_LOOT_MODIFIER = GLOBAL_LOOT_MODIFIER_DEF_REG.register("cave_tablet", () -> CaveTabletLootModifier.CODEC);
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<? extends IGlobalLootModifier>> CABIN_MAP_LOOT_MODIFIER = GLOBAL_LOOT_MODIFIER_DEF_REG.register("cabin_map", () -> CabinMapLootModifier.CODEC);
+    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<CabinMapLootFunction>> CABIN_MAP_LOOT_FUNCTION = LOOT_FUNCTION_DEF_REG.register("cabin_map", () -> new LootItemFunctionType<>(CabinMapLootFunction.CODEC));
+    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<ReplaceWithTabletLootFunction>> REPLACE_WITH_TABLET_LOOT_FUNCTION = LOOT_FUNCTION_DEF_REG.register("replace_with_tablet", () -> new LootItemFunctionType<>(ReplaceWithTabletLootFunction.CODEC));
     public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<GummyColorLootFunction>> GUMMY_COLORS_LOOT_FUNCTION = LOOT_FUNCTION_DEF_REG.register("gummy_colors", () -> new LootItemFunctionType<>(GummyColorLootFunction.CODEC));
 
     public static final ResourceKey<LootTable> ABYSSAL_RUINS_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID, "chests/abyssal_ruins"));

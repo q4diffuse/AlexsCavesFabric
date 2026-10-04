@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.fabric;
 
+import com.github.alexmodguy.alexscaves.citadel.server.message.SyncClientTickRateMessage;
+
 import com.github.alexmodguy.alexscaves.server.message.ArmorKeyMessage;
 import com.github.alexmodguy.alexscaves.server.message.BeholderRotateMessage;
 import com.github.alexmodguy.alexscaves.server.message.BeholderSyncMessage;
@@ -57,6 +59,7 @@ public final class ACNetworkingFabric {
         registerS2C(UpdateEffectVisualityEntityMessage.TYPE, UpdateEffectVisualityEntityMessage.CODEC);
         registerS2C(UpdateMagneticDataMessage.TYPE, UpdateMagneticDataMessage.CODEC);
         registerS2C(WorldEventMessage.TYPE, WorldEventMessage.CODEC);
+        registerS2C(SyncClientTickRateMessage.TYPE, SyncClientTickRateMessage.CODEC);
 
         registerBidirectional(PropertiesMessage.TYPE, PropertiesMessage.CODEC, PropertiesMessage::handle);
         registerBidirectional(UpdateItemTagMessage.TYPE, UpdateItemTagMessage.CODEC, UpdateItemTagMessage::handle);

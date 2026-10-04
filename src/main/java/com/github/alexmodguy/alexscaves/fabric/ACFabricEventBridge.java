@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.fabric;
 
+import com.github.alexmodguy.alexscaves.citadel.server.tick.ServerTickRateTracker;
+
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
@@ -68,6 +70,13 @@ public final class ACFabricEventBridge {
             AttackEntityEvent event = new AttackEntityEvent(player, entity);
             NeoForge.EVENT_BUS.post(event);
             return event.isCanceled() ? InteractionResult.FAIL : InteractionResult.PASS;
+        });
+
+        // Citadel's CitadelEvents.onServerTick: counts down tick rate modifiers (Sugar Rush) and syncs them to clients
+        ServerTickEvents.START_SERVER_TICK.register(server -> {
+            if (server.isRunning()) {
+                ServerTickRateTracker.getForServer(server).masterTick();
+            }
         });
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {

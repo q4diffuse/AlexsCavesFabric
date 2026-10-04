@@ -2,28 +2,41 @@ package com.github.alexmodguy.alexscaves.client.render;
 
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.citadel.client.shader.PostEffectRegistry;
+import com.github.alexmodguy.alexscaves.compat.iris.IrisCompat;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
 
 public class ACRenderTypes extends RenderType {
-    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_FEROUSSLIME_GEL_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeFerrouslimeGelShader);
+    // With a shader pack, Iris refuses to draw mod shaders into the main framebuffer (unless allowUnknownShaders is on),
+    // so these fall back to the vanilla shader they copy, which Iris swaps for the pack's own program
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_FEROUSSLIME_GEL_SHADER = new RenderStateShard.ShaderStateShard(() -> IrisCompat.isShaderPackInUse() ? GameRenderer.getRendertypeEntityTranslucentShader() : ACInternalShaders.getRenderTypeFerrouslimeGelShader());
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_HOLOGRAM_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeHologramShader);
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_HOLOGRAM_ENTITY_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeHologramEntityShader);
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_IRRADIATED_SWIRL_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeIrradiatedSwirlShader);
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_IRRADIATED_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeIrradiatedShader);
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_BLUE_IRRADIATED_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeBlueIrradiatedShader);
-    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_BUBBLED_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeBubbledShader);
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_BUBBLED_SHADER = new RenderStateShard.ShaderStateShard(() -> IrisCompat.isShaderPackInUse() ? GameRenderer.getRendertypeEntityTranslucentShader() : ACInternalShaders.getRenderTypeBubbledShader());
+    // Iris maps energy swirl to its opaque entity program; the translucent emissive one keeps these glowing and see-through
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_TRANSLUCENT_SWIRL_SHADER = new RenderStateShard.ShaderStateShard(() -> IrisCompat.isShaderPackInUse() ? GameRenderer.getRendertypeEntityTranslucentEmissiveShader() : GameRenderer.getRendertypeEnergySwirlShader());
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_SEPIA_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeSepiaShader);
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_RED_GHOST_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeRedGhostShader);
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_PURPLE_WITCH_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypePurpleWitchShader);
 
+    // Offscreen outputs stay out of Iris' shadow pass: binding them there would capture the scene from the
+    // sun's point of view, and rebinding the main target afterwards would knock Iris off its shadow framebuffer
     protected static final RenderStateShard.OutputStateShard IRRADIATED_OUTPUT = new RenderStateShard.OutputStateShard("irradiated_target", () -> {
+        if (IrisCompat.isRenderingShadowPass()) {
+            return;
+        }
         RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientProxy.IRRADIATED_SHADER);
         if (target != null) {
             target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
@@ -32,26 +45,56 @@ public class ACRenderTypes extends RenderType {
             com.github.alexmodguy.alexscaves.AlexsCaves.LOGGER.warn("IRRADIATED_OUTPUT target is null!");
         }
     }, () -> {
-        Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        if (!IrisCompat.isRenderingShadowPass()) {
+            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        }
     });
     protected static final RenderStateShard.OutputStateShard HOLOGRAM_OUTPUT = new RenderStateShard.OutputStateShard("hologram_target", () -> {
+        if (IrisCompat.isRenderingShadowPass()) {
+            return;
+        }
         RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientProxy.HOLOGRAM_SHADER);
         if (target != null) {
             target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
             target.bindWrite(false);
         }
     }, () -> {
-        Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        if (!IrisCompat.isRenderingShadowPass()) {
+            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        }
     });
 
     protected static final RenderStateShard.OutputStateShard PURPLE_WITCH_OUTPUT = new RenderStateShard.OutputStateShard("purple_witch_target", () -> {
+        if (IrisCompat.isRenderingShadowPass()) {
+            return;
+        }
         RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientProxy.PURPLE_WITCH_SHADER);
         if (target != null) {
             target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
             target.bindWrite(false);
         }
     }, () -> {
-        Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        if (!IrisCompat.isRenderingShadowPass()) {
+            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        }
+    });
+
+    // The red ghost recolour has no vanilla equivalent: with a shader pack it is drawn offscreen (where Iris leaves
+    // mod shaders alone) and added on top of the final image, like the hologram
+    protected static final RenderStateShard.OutputStateShard RED_GHOST_OUTPUT = new RenderStateShard.OutputStateShard("red_ghost_target", () -> {
+        if (!IrisCompat.isShaderPackInUse() || IrisCompat.isRenderingShadowPass()) {
+            return;
+        }
+        RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientProxy.RED_GHOST_SHADER);
+        if (target != null) {
+            PostEffectRegistry.renderEffectForNextTick(ClientProxy.RED_GHOST_SHADER);
+            target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
+            target.bindWrite(false);
+        }
+    }, () -> {
+        if (IrisCompat.isShaderPackInUse() && !IrisCompat.isRenderingShadowPass()) {
+            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        }
     });
 
     protected static final RenderStateShard.TransparencyStateShard EYES_ALPHA_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("eyes_alpha_transparency", () -> {
@@ -68,11 +111,11 @@ public class ACRenderTypes extends RenderType {
     }
 
     public static RenderType getParticleTrail(ResourceLocation resourceLocation) {
-        return create("particle_trail", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, true, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setOverlayState(OVERLAY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
+        return create("particle_trail", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_TRANSLUCENT_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, true, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setOverlayState(OVERLAY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
     }
 
     public static RenderType getVoidBeingCloud(ResourceLocation resourceLocation) {
-        return create("void_being", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setOverlayState(OVERLAY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
+        return create("void_being", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_TRANSLUCENT_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setOverlayState(OVERLAY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
     }
 
     public static RenderType getEyesAlphaEnabled(ResourceLocation locationIn) {
@@ -154,6 +197,8 @@ public class ACRenderTypes extends RenderType {
                 .setLightmapState(LIGHTMAP)
                 .setOverlayState(OVERLAY)
                 .setDepthTestState(LEQUAL_DEPTH_TEST)
+                // nudged towards the camera: shaderpacks with TAA jitter the entity's depth, so the glow z-fights with it
+                .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                 .setOutputState(IRRADIATED_OUTPUT)
                 .createCompositeState(true));
     }
@@ -168,6 +213,8 @@ public class ACRenderTypes extends RenderType {
                 .setLightmapState(LIGHTMAP)
                 .setOverlayState(OVERLAY)
                 .setDepthTestState(LEQUAL_DEPTH_TEST)
+                // nudged towards the camera: shaderpacks with TAA jitter the entity's depth, so the glow z-fights with it
+                .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                 .setOutputState(IRRADIATED_OUTPUT)
                 .createCompositeState(true));
     }
@@ -202,19 +249,19 @@ public class ACRenderTypes extends RenderType {
 
 
     public static RenderType getTeslaBulb(ResourceLocation resourceLocation) {
-        return create("tesla_bulb", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
+        return create("tesla_bulb", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_TRANSLUCENT_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
     }
 
     public static RenderType getRainbow(ResourceLocation resourceLocation) {
         // Use TRANSLUCENT_TRANSPARENCY like 1.20 for more solid rainbow appearance
-        return create("rainbow", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
+        return create("rainbow", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_TRANSLUCENT_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(RenderStateShard.NO_CULL).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
     }
 
     public static RenderType getHologram(ResourceLocation locationIn) {
         // In 1.21, use NEW_ENTITY format since model.renderToBuffer() outputs NEW_ENTITY vertices
-        // Use RENDERTYPE_ENTITY_TRANSLUCENT_SHADER which is compatible with NEW_ENTITY format
+        // Own copy of rendertype_entity_translucent so Iris leaves it alone and it lands in the hologram target
         return create("hologram", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, RenderType.CompositeState.builder()
-                .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
+                .setShaderState(RENDERTYPE_HOLOGRAM_ENTITY_SHADER)
                 .setCullState(NO_CULL)
                 .setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, false))
                 .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
@@ -237,6 +284,7 @@ public class ACRenderTypes extends RenderType {
                 .setWriteMaskState(COLOR_DEPTH_WRITE)
                 .setDepthTestState(LEQUAL_DEPTH_TEST)
                 .setOverlayState(OVERLAY)
+                .setOutputState(RED_GHOST_OUTPUT)
                 .createCompositeState(true));
     }
 
@@ -280,7 +328,7 @@ public class ACRenderTypes extends RenderType {
     public static RenderType getRaygunRay(ResourceLocation locationIn, boolean irradiated) {
         return create("raygun_ray", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, true, true, RenderType.CompositeState.builder()
                 .setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, false))
-                .setShaderState(RenderType.RENDERTYPE_ENERGY_SWIRL_SHADER)
+                .setShaderState(irradiated ? RENDERTYPE_IRRADIATED_SWIRL_SHADER : RENDERTYPE_TRANSLUCENT_SWIRL_SHADER)
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)
@@ -291,7 +339,7 @@ public class ACRenderTypes extends RenderType {
     public static RenderType getTremorzillaBeam(ResourceLocation locationIn, boolean irradiated) {
         return create("tremorzilla_beam", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, RenderType.CompositeState.builder()
                 .setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, false))
-                .setShaderState(RenderType.RENDERTYPE_ENERGY_SWIRL_SHADER)
+                .setShaderState(irradiated ? RENDERTYPE_IRRADIATED_SWIRL_SHADER : RENDERTYPE_TRANSLUCENT_SWIRL_SHADER)
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)

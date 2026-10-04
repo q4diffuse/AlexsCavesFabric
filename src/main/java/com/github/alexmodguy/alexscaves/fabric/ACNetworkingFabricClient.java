@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.fabric;
 
+import com.github.alexmodguy.alexscaves.citadel.server.message.SyncClientTickRateMessage;
+
 import com.github.alexmodguy.alexscaves.server.message.BeholderSyncMessage;
 import com.github.alexmodguy.alexscaves.server.message.SpelunkeryTableCompleteTutorialMessage;
 import com.github.alexmodguy.alexscaves.server.message.SundropRainbowMessage;
@@ -37,6 +39,7 @@ public final class ACNetworkingFabricClient {
         registerReceiver(UpdateMagneticDataMessage.TYPE, UpdateMagneticDataMessage::handle);
         registerReceiver(PropertiesMessage.TYPE, PropertiesMessage::handle);
         registerReceiver(WorldEventMessage.TYPE, WorldEventMessage::handle);
+        registerReceiver(SyncClientTickRateMessage.TYPE, SyncClientTickRateMessage::handle);
     }
 
     private static <T extends CustomPacketPayload> void registerReceiver(CustomPacketPayload.Type<T> type, ACNetworkingFabric.PayloadHandler<T> handler) {

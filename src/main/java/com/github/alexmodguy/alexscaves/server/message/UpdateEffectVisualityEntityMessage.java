@@ -104,7 +104,7 @@ public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
                         level = IrradiatedEffect.BLUE_LEVEL;
                         break;
                 }
-                if (mobEffect != null) {
+                if (mobEffect != null && living != playerSided) {
                     if (message.remove) {
                         living.removeEffectNoUpdate(mobEffect);
                     } else {

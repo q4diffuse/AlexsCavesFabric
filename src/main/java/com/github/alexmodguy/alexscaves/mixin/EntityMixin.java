@@ -9,6 +9,7 @@ import com.github.alexmodguy.alexscaves.server.item.RainbounceBootsItem;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.citadel.server.entity.collision.ICustomCollisions;
+import com.github.alexmodguy.alexscaves.server.entity.living.SubterranodonEntity;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -209,6 +210,11 @@ public abstract class EntityMixin implements MagneticEntityAccessor {
         // depend on Entity.collide() being directly overridable.
         if (thisEntity instanceof ICustomCollisions) {
             cir.setReturnValue(ICustomCollisions.getAllowedMovementForEntity(thisEntity, deltaIn));
+            return;
+        }
+        // Entity.collide is private on Fabric, so the Subterranodon's override (rider-inclusive flight box) is called from here
+        if (thisEntity instanceof SubterranodonEntity subterranodon && subterranodon.usesRiderFlightCollision()) {
+            cir.setReturnValue(subterranodon.collide(deltaIn));
             return;
         }
 

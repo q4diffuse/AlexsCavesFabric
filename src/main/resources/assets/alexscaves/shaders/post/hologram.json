@@ -2,7 +2,7 @@
   "targets": ["swap", "final"],
   "passes": [
     {
-      "name": "box_blur",
+      "name": "alexscaves_citadel_blur",
       "intarget": "final",
       "outtarget": "swap",
       "uniforms": [
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "name": "box_blur",
+      "name": "alexscaves_citadel_blur",
       "intarget": "swap",
       "outtarget": "final",
       "uniforms": [

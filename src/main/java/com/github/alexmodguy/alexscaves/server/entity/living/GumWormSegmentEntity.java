@@ -509,6 +509,7 @@ public class GumWormSegmentEntity extends Entity implements ICustomCollisions, K
         return prevZRot + (zRot - prevZRot) * partialTicks;
     }
 
+    @Override
     public boolean shouldRiderSit() {
         return false;
     }

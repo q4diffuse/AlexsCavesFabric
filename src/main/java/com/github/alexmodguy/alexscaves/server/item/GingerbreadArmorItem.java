@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GingerbreadArmorItem extends ArmorItem {
+public class GingerbreadArmorItem extends ArmorItem implements StackSensitiveAttributesItem {
 
     private static final double MIN_SPEED_BOOST = 0.1D;
     private static final double MAX_SPEED_BOOST = 1.0D;
@@ -61,6 +61,7 @@ public class GingerbreadArmorItem extends ArmorItem {
         consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
     }
 
+    @Override
     public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
         if (stack.getDamageValue() > 0) {
             return getOrCreateDurabilityAttributes(stack.getDamageValue(), stack.getMaxDamage());

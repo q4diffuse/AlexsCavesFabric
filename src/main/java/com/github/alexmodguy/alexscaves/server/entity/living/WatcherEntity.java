@@ -308,7 +308,7 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
 
     public boolean canPossessTargetEntity(Entity entity) {
         if (entity instanceof Player player) {
-            long timeElapsed = level().getGameTime() - ACRuntimeData.getOrCreate(player).getLong(LAST_POSSESSED_TIME_IDENTIFIER);
+            long timeElapsed = level().getGameTime() - ACRuntimeData.read(player).getLong(LAST_POSSESSED_TIME_IDENTIFIER);
             return timeElapsed >= AlexsCaves.COMMON_CONFIG.watcherPossessionCooldown.get();
         }
         return true;

@@ -8,6 +8,8 @@ public class ACInternalShaders {
 
     private static ShaderInstance renderTypeFerrouslimeGelShader;
     private static ShaderInstance renderTypeHologramShader;
+    private static ShaderInstance renderTypeHologramEntityShader;
+    private static ShaderInstance renderTypeIrradiatedSwirlShader;
     private static ShaderInstance renderTypeIrradiatedShader;
     private static ShaderInstance renderTypeBlueIrradiatedShader;
     private static ShaderInstance renderTypeBubbledShader;
@@ -32,6 +34,24 @@ public class ACInternalShaders {
     @Nullable
     public static ShaderInstance getRenderTypeHologramShader() {
         return renderTypeHologramShader;
+    }
+
+    @Nullable
+    public static ShaderInstance getRenderTypeHologramEntityShader() {
+        return renderTypeHologramEntityShader;
+    }
+
+    public static void setRenderTypeHologramEntityShader(ShaderInstance instance) {
+        renderTypeHologramEntityShader = instance;
+    }
+
+    @Nullable
+    public static ShaderInstance getRenderTypeIrradiatedSwirlShader() {
+        return renderTypeIrradiatedSwirlShader;
+    }
+
+    public static void setRenderTypeIrradiatedSwirlShader(ShaderInstance instance) {
+        renderTypeIrradiatedSwirlShader = instance;
     }
 
     @Nullable

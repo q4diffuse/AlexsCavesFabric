@@ -172,7 +172,7 @@
       }
     ],
     "water_creature": [],
-    "creature": [
+    "alexscaves:cave_creature": [
       {
         "type": "alexscaves:candicorn",
         "maxCount": 6,

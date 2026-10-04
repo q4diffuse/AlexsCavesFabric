@@ -4,8 +4,8 @@
     "srcrgb": "one",
     "dstrgb": "zero"
   },
-  "vertex": "alexscaves:submarine_light",
-  "fragment": "alexscaves:submarine_light",
+  "vertex": "submarine_light",
+  "fragment": "submarine_light",
   "attributes": ["Position"],
   "samplers": [
     { "name": "DiffuseDepthSampler" },

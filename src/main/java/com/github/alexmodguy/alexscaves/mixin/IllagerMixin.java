@@ -28,6 +28,6 @@ public abstract class IllagerMixin {
 
     @Unique
     private static boolean isPossessed(Entity e) {
-        return ACRuntimeData.getOrCreate(e).getBoolean("TotemPossessed");
+        return ACRuntimeData.read(e).getBoolean("TotemPossessed");
     }
 }

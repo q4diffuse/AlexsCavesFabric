@@ -17,6 +17,8 @@ import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderPropertie
 import com.github.alexmodguy.alexscaves.client.render.item.RaygunRenderHelper;
 import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.client.sound.*;
+import com.github.alexmodguy.alexscaves.mixin.client.DeltaTrackerTimerAccessor;
+import com.github.alexmodguy.alexscaves.mixin.client.GameRendererAccessor;
 import com.github.alexmodguy.alexscaves.mixin.client.SoundEngineAccessor;
 import com.github.alexmodguy.alexscaves.mixin.client.SoundManagerAccessor;
 import com.github.alexmodguy.alexscaves.server.CommonProxy;
@@ -31,6 +33,7 @@ import com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.QuarrySmasherEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
+import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
 import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
@@ -38,6 +41,7 @@ import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.BiomeSampler;
 import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.citadel.client.shader.PostEffectRegistry;
 import com.github.alexmodguy.alexscaves.citadel.client.tick.ClientTickRateTracker;
 import com.github.alexmodguy.alexscaves.citadel.server.tick.ServerTickRateTracker;
@@ -46,6 +50,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -59,14 +64,18 @@ import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallbac
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.minecraft.client.Camera;
 import net.minecraft.client.CameraType;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -79,6 +88,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -124,6 +134,12 @@ public class ClientProxy extends CommonProxy {
             "shaders/post/purple_witch.json");
     public static final ResourceLocation SUGAR_RUSH_SHADER = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID,
             "shaders/post/sugar_rush.json");
+    public static final ResourceLocation RED_GHOST_SHADER = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID,
+            "shaders/post/red_ghost.json");
+    private static final ResourceLocation SUBMARINE_SHADER = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID,
+            "shaders/post/submarine_light.json");
+    private static final ResourceLocation WATCHER_SHADER = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID,
+            "shaders/post/watcher_perspective.json");
     public static final RandomSource random = RandomSource.create();
     public static int lastTremorTick = -1;
     public static float[] randomTremorOffsets = new float[3];
@@ -197,8 +213,10 @@ public class ClientProxy extends CommonProxy {
 
     public static void registerFabricClientLifecycle() {
         ClientTickEvents.END_CLIENT_TICK.register(ClientProxy::onFabricClientTick);
+        WorldRenderEvents.START.register(ClientProxy::onFabricRenderStart);
         WorldRenderEvents.BEFORE_ENTITIES.register(ClientProxy::onFabricBeforeEntities);
         WorldRenderEvents.AFTER_ENTITIES.register(ClientProxy::onFabricAfterEntities);
+        WorldRenderEvents.AFTER_TRANSLUCENT.register(ClientProxy::onFabricAfterTranslucent);
     }
 
     public static void registerFabricBuiltinItemRenderers() {
@@ -247,6 +265,7 @@ public class ClientProxy extends CommonProxy {
 
     private static void onFabricClientTick(Minecraft minecraft) {
         Entity cameraEntity = minecraft.cameraEntity;
+        tickClientTickRate(minecraft);
         tickBubbledEffects();
         if (shaderLoadAttemptCooldown > 0) {
             shaderLoadAttemptCooldown--;
@@ -266,6 +285,9 @@ public class ClientProxy extends CommonProxy {
         prevNukeFlashAmount = nukeFlashAmount;
         nukeFlashAmount = Mth.approach(nukeFlashAmount, renderNukeFlashFor > 0 ? 1.0F : 0.0F, renderNukeFlashFor > 0 ? 0.25F : 0.08F);
         masterVolumeNukeModifier = Mth.approach(masterVolumeNukeModifier, muteNonNukeSoundsFor > 0 ? 1.0F : 0.0F, 0.08F);
+        if (minecraft.level != null && !minecraft.isPaused()) {
+            ClientEvents.tickDarknessTrails(minecraft.level.entitiesForRendering());
+        }
         if (cameraEntity == null || minecraft.level == null) {
             acSkyOverrideAmount = 0.0F;
             acSkyOverrideColor = Vec3.ZERO;
@@ -310,6 +332,82 @@ public class ClientProxy extends CommonProxy {
 
     private static void onFabricAfterEntities(WorldRenderContext context) {
         renderFirstPersonRaygunRays(context, 1);
+        if (context.matrixStack() == null) {
+            return;
+        }
+        PoseStack poseStack = context.matrixStack();
+        Camera camera = context.camera();
+        float partialTick = context.tickCounter().getGameTimeDeltaPartialTick(false);
+        if (ClientEvents.shouldRenderLocalPlayerFromCamera()) {
+            // vanilla skips the local player whenever the camera is another entity, NeoForge did not
+            renderLocalPlayer(Minecraft.getInstance().player, camera, partialTick, poseStack);
+        }
+        RenderSystem.runAsFancy(() -> HologramProjectorBlockRenderer.renderEntireBatch(context.worldRenderer(), poseStack, 0, camera, partialTick));
+        RenderSystem.runAsFancy(() -> CorrodentRenderer.renderEntireBatch(context.worldRenderer(), poseStack, 0, camera, partialTick));
+        RenderSystem.runAsFancy(() -> LicowitchRenderer.renderEntireBatch(context.worldRenderer(), poseStack, 0, camera, partialTick));
+        Minecraft.getInstance().renderBuffers().bufferSource().endBatch();
+    }
+
+    private static void renderLocalPlayer(LocalPlayer player, Camera camera, float partialTick, PoseStack poseStack) {
+        Vec3 cameraPos = camera.getPosition();
+        double x = Mth.lerp(partialTick, player.xOld, player.getX()) - cameraPos.x;
+        double y = Mth.lerp(partialTick, player.yOld, player.getY()) - cameraPos.y;
+        double z = Mth.lerp(partialTick, player.zOld, player.getZ()) - cameraPos.z;
+        float yaw = Mth.lerp(partialTick, player.yRotO, player.getYRot());
+        EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        dispatcher.render(player, x, y, z, yaw, partialTick, poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), dispatcher.getPackedLightCoords(player, partialTick));
+    }
+
+    private static void onFabricAfterTranslucent(WorldRenderContext context) {
+        if (context.matrixStack() == null || !AlexsCaves.CLIENT_CONFIG.ambersolShines.get()) {
+            return;
+        }
+        PoseStack poseStack = context.matrixStack();
+        Camera camera = context.camera();
+        float partialTick = context.tickCounter().getGameTimeDeltaPartialTick(false);
+        RenderSystem.runAsFancy(() -> AmbersolBlockRenderer.renderEntireBatch(context.worldRenderer(), poseStack, 0, camera, partialTick));
+        Minecraft.getInstance().renderBuffers().bufferSource().endBatch();
+    }
+
+    private static void onFabricRenderStart(WorldRenderContext context) {
+        Minecraft minecraft = Minecraft.getInstance();
+        Entity player = minecraft.getCameraEntity();
+        if (player == null) {
+            return;
+        }
+        if (player instanceof PossessesCamera && !minecraft.options.getCameraType().isFirstPerson()) {
+            minecraft.options.setCameraType(CameraType.FIRST_PERSON);
+        }
+        boolean firstPerson = minecraft.options.getCameraType().isFirstPerson();
+        GameRenderer renderer = minecraft.gameRenderer;
+        if (firstPerson && player.isPassenger() && player.getVehicle() instanceof SubmarineEntity submarine && SubmarineRenderer.isFirstPersonFloodlightsMode(submarine)) {
+            if (!isPostEffectActive(renderer, SUBMARINE_SHADER)) {
+                attemptLoadShader(SUBMARINE_SHADER);
+            }
+        } else if (isPostEffectActive(renderer, SUBMARINE_SHADER)) {
+            renderer.checkEntityPostEffect(null);
+        } else if (firstPerson && player instanceof PossessesCamera || player instanceof LivingEntity afflicted && afflicted.hasEffect(ACEffectRegistry.DARKNESS_INCARNATE)) {
+            if (!isPostEffectActive(renderer, WATCHER_SHADER)) {
+                attemptLoadShader(WATCHER_SHADER);
+            }
+        } else if (isPostEffectActive(renderer, WATCHER_SHADER)) {
+            renderer.checkEntityPostEffect(null);
+        }
+    }
+
+    private static boolean isPostEffectActive(GameRenderer renderer, ResourceLocation shader) {
+        return renderer.currentEffect() != null && shader.toString().equals(renderer.currentEffect().getName());
+    }
+
+    private static void attemptLoadShader(ResourceLocation resourceLocation) {
+        GameRenderer renderer = Minecraft.getInstance().gameRenderer;
+        if (shaderLoadAttemptCooldown <= 0) {
+            ((GameRendererAccessor) renderer).invokeLoadEffect(resourceLocation);
+            if (!((GameRendererAccessor) renderer).isEffectActive()) {
+                shaderLoadAttemptCooldown = 12000;
+                AlexsCaves.LOGGER.warn("Alex's Caves could not load the shader {}, will attempt to load shader in 30 seconds", resourceLocation);
+            }
+        }
     }
 
     private static void renderFirstPersonRaygunRays(WorldRenderContext context, int firstPersonPass) {
@@ -608,6 +706,7 @@ public class ClientProxy extends CommonProxy {
         PostEffectRegistry.registerEffect(HOLOGRAM_SHADER);
         PostEffectRegistry.registerEffect(PURPLE_WITCH_SHADER);
         PostEffectRegistry.registerEffect(SUGAR_RUSH_SHADER);
+        PostEffectRegistry.registerEffect(RED_GHOST_SHADER);
         ACBlockRenderLayerRegistry.register();
         // Menu screens are now registered via RegisterMenuScreensEvent in commonInit
         hasACSplashText = random.nextInt(300) == 0;
@@ -810,6 +909,12 @@ public class ClientProxy extends CommonProxy {
                 DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeFerrouslimeGelShader);
         registrar.register(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID, "rendertype_hologram"),
                 DefaultVertexFormat.POSITION_COLOR, ACInternalShaders::setRenderTypeHologramShader);
+        // copies of rendertype_entity_translucent / rendertype_energy_swirl: Iris swaps the vanilla ones for
+        // shaderpack programs that draw into its own framebuffer, which would bypass the post-effect targets
+        registrar.register(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID, "rendertype_hologram_entity"),
+                DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeHologramEntityShader);
+        registrar.register(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID, "rendertype_irradiated_swirl"),
+                DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeIrradiatedSwirlShader);
         registrar.register(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID, "rendertype_irradiated"),
                 DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeIrradiatedShader);
         registrar.register(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID, "rendertype_blue_irradiated"),
@@ -1530,7 +1635,40 @@ public class ClientProxy extends CommonProxy {
     }
 
     public boolean isTickRateModificationActive(Level level) {
-        return ClientTickRateTracker.getForClient(Minecraft.getInstance()).getClientTickRate() != 50;
+        return isClientSlowMotionAllowed() && ClientTickRateTracker.getForClient(Minecraft.getInstance()).getClientTickRate() != 50;
+    }
+
+    @Override
+    public void syncClientTickRate(CompoundTag tag) {
+        ClientTickRateTracker.getForClient(Minecraft.getInstance()).syncFromServer(tag);
+    }
+
+    /**
+     * Citadel slows the whole client down (Sugar Rush). Only safe in an unpublished singleplayer world: the integrated
+     * server skips movement checks for its owner, while a dedicated or LAN server would see a client ticking at a
+     * different rate than itself.
+     */
+    public static boolean isClientSlowMotionAllowed() {
+        Minecraft minecraft = Minecraft.getInstance();
+        return minecraft.hasSingleplayerServer() && minecraft.getSingleplayerServer() != null && !minecraft.getSingleplayerServer().isPublished();
+    }
+
+    private static void tickClientTickRate(Minecraft minecraft) {
+        ClientTickRateTracker tracker = ClientTickRateTracker.getForClient(minecraft);
+        float msPerTick = 50F;
+        if (minecraft.level == null || minecraft.player == null) {
+            tracker.tickRateModifierList.clear();
+        } else {
+            if (!minecraft.isPaused()) {
+                tracker.masterTick();
+            }
+            if (isClientSlowMotionAllowed()) {
+                msPerTick = tracker.getClientTickRate();
+            }
+        }
+        if (minecraft.getTimer() instanceof DeltaTracker.Timer timer) {
+            ((DeltaTrackerTimerAccessor) timer).ac_setMsPerTick(msPerTick);
+        }
     }
 
     @Override

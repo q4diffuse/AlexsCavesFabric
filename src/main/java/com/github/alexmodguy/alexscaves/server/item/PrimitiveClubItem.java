@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-public class PrimitiveClubItem extends Item {
+public class PrimitiveClubItem extends Item implements StackSensitiveAttributesItem {
 
     public PrimitiveClubItem(Item.Properties properties) {
         super(properties);
@@ -112,6 +112,7 @@ public class PrimitiveClubItem extends Item {
         return repairItem.is(ACItemRegistry.HEAVY_BONE.get()) || super.isValidRepairItem(item, repairItem);
     }
 
+    @Override
     public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
         int swift = ACEnchantmentHelper.getEnchantmentLevelFromStack(ACEnchantmentRegistry.SWIFTWOOD, stack);
         if (swift > 0) {

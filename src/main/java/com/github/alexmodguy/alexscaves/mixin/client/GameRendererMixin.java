@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.mixin.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.render.entity.SubmarineRenderer;
 import com.github.alexmodguy.alexscaves.client.render.entity.layer.ACPotionEffectLayer;
 import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
@@ -18,13 +19,17 @@ import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.Mth;
 import org.joml.Quaternionf;
+import org.joml.Quaternionfc;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
@@ -73,6 +78,19 @@ public abstract class GameRendererMixin {
             PostEffectRegistry.blitEffects();
         }
         ((ClientProxy) AlexsCaves.PROXY).preScreenRender(partialTick);
+    }
+
+    // roll part of NeoForge's ViewportEvent.ComputeCameraAngles (stunned camera sway)
+    @ModifyArg(method = "renderLevel", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix4f;rotation(Lorg/joml/Quaternionfc;)Lorg/joml/Matrix4f;"))
+    private Quaternionfc ac_applyCameraRoll(Quaternionfc viewRotation) {
+        float roll = ClientEvents.getCameraRoll(mainCamera.getPartialTickTime());
+        return roll == 0.0F ? viewRotation : new Quaternionf(viewRotation).rotateLocalZ(roll * Mth.DEG_TO_RAD);
+    }
+
+    // Fabric replacement for NeoForge's ViewportEvent.ComputeFov
+    @Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
+    private void ac_getFov(Camera camera, float partialTicks, boolean useFovSetting, CallbackInfoReturnable<Double> cir) {
+        cir.setReturnValue(ClientEvents.computeFov(camera, cir.getReturnValue()));
     }
 
     @Inject(

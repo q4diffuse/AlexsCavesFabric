@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.citadel.server.message;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -25,5 +26,8 @@ public record SyncClientTickRateMessage(CompoundTag compound) implements CustomP
     }
 
     public static void handle(SyncClientTickRateMessage message, IPayloadContext context) {
+        if (context.flow().isClientbound()) {
+            context.enqueueWork(() -> AlexsCaves.PROXY.syncClientTickRate(message.compound()));
+        }
     }
 }

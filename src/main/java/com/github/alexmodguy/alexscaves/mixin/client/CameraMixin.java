@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.mixin.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagnetUtil;
 import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
 import com.github.alexmodguy.alexscaves.server.entity.util.ShakesScreen;
@@ -109,6 +110,7 @@ public abstract class CameraMixin {
                         ClientProxy.randomTremorOffsets[2] * 0.5F * intensity);
             }
         }
+        ClientEvents.computeCameraAngles((Camera) (Object) this, player, partialTicks);
     }
 
     @Inject(

@@ -1,0 +1,15 @@
+{
+  "targets": ["swap", "final"],
+  "passes": [
+    {
+      "name": "alexscaves_opaque_alpha",
+      "intarget": "final",
+      "outtarget": "swap"
+    },
+    {
+      "name": "blit",
+      "intarget": "swap",
+      "outtarget": "final"
+    }
+  ]
+}
